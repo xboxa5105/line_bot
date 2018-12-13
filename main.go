@@ -51,7 +51,7 @@ func main() {
 	rate_data, _ := http_bank()
 	// exchange_rate_data, _ := json.Marshal(rate_data)
 	usd := fmt.Sprintf("美金 : %s\n日圓 : %s\n英鎊 : %s\n歐元 : %s", rate_data.USD, rate_data.JPY, rate_data.GBP, rate_data.EUR)
-	spec := "0 0 17,18 * * *"
+	spec := "0 0 12,15 * * *"
 	c := cron.New()
 	c.AddFunc(spec, func() {
 		line_post(usd)
