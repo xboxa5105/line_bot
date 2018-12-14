@@ -28,30 +28,10 @@ type message struct {
 }
 
 func main() {
-	// http.HandleFunc("/lineBot", func(w http.ResponseWriter, r *http.Request) {
-	// t := time.NewTicker(4 * time.Second)
-	// go func() {
-	// 	for range t.C {
-	// 		rate_data, _ := http_bank()
-	// 		// exchange_rate_data, _ := json.Marshal(rate_data)
-	// 		usd := fmt.Sprintf("美金 : %s\n日圓 : %s\n英鎊 : %s\n歐元 : %s", rate_data.USD, rate_data.JPY, rate_data.GBP, rate_data.EUR)
-	// 		fmt.Println(usd)
-	// 		line_post(usd)
-	// 		// w.Write(exchange_rate_data)
-	// 	}
-	// }()
-	// 	rate_data, _ := http_bank()
-	// 	exchange_rate_data, _ := json.Marshal(rate_data)
-	// 	// fmt.Println(string(exchange_rate_data))
-	// 	w.Write(exchange_rate_data)
-	// })
-	// fmt.Println("Server is on 8001")
-	// http.ListenAndServe(":8001", nil)
-
 	rate_data, _ := http_bank()
 	// exchange_rate_data, _ := json.Marshal(rate_data)
 	usd := fmt.Sprintf("美金 : %s\n日圓 : %s\n英鎊 : %s\n歐元 : %s", rate_data.USD, rate_data.JPY, rate_data.GBP, rate_data.EUR)
-	spec := "0 0 1,2,3,4,5,6,7 * * *"
+	spec := "0 0 1,4,7 * * *"
 	c := cron.New()
 	c.AddFunc(spec, func() {
 		line_post(usd)
