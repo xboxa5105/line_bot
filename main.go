@@ -51,8 +51,8 @@ func http_bank() (*exchange_rate, error) {
 		fmt.Println(err)
 		return nil, err
 	}
-	// body, _ := ioutil.ReadAll(resp.Body)
-	// fmt.Println(string(body))
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(body))
 	defer resp.Body.Close()
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
@@ -63,7 +63,7 @@ func http_bank() (*exchange_rate, error) {
 		// For each item found, get the band and title
 		// rate = append(rate, s.Text())
 		// fmt.Println("here")
-		// fmt.Println(s.Text())
+		fmt.Println(s.Text())
 
 		// band := s.Find("a").Text()
 		// title := s.Find("i").Text()
