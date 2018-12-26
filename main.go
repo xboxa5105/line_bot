@@ -51,9 +51,9 @@ func http_bank() (*exchange_rate, error) {
 		fmt.Println(err)
 		return nil, err
 	}
-	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(body))
 	defer resp.Body.Close()
+	// body, _ := ioutil.ReadAll(resp.Body)
+	// fmt.Println(string(body))
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
 		fmt.Println(err)
