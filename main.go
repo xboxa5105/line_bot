@@ -28,12 +28,12 @@ type message struct {
 }
 
 func main() {
-	rate_data, _ := http_bank()
-	// exchange_rate_data, _ := json.Marshal(rate_data)
-	usd := fmt.Sprintf("美金 : %s\n日圓 : %s\n英鎊 : %s\n歐元 : %s", rate_data.USD, rate_data.JPY, rate_data.GBP, rate_data.EUR)
 	spec := "0 0 * * * *"
 	c := cron.New()
 	c.AddFunc(spec, func() {
+		rate_data, _ := http_bank()
+		// exchange_rate_data, _ := json.Marshal(rate_data)
+		usd := fmt.Sprintf("美金 : %s\n日圓 : %s\n英鎊 : %s\n歐元 : %s", rate_data.USD, rate_data.JPY, rate_data.GBP, rate_data.EUR)
 		line_post(usd)
 		fmt.Println(usd)
 	})
@@ -63,7 +63,6 @@ func http_bank() (*exchange_rate, error) {
 		// For each item found, get the band and title
 		// rate = append(rate, s.Text())
 		// fmt.Println("here")
-		fmt.Println(s.Text())
 
 		// band := s.Find("a").Text()
 		// title := s.Find("i").Text()
