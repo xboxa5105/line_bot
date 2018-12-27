@@ -28,7 +28,7 @@ type message struct {
 }
 
 func main() {
-	spec := "0 0 * * * *"
+	spec := "0 0 1,4,7 * * *"
 	c := cron.New()
 	c.AddFunc(spec, func() {
 		rate_data, _ := http_bank()
