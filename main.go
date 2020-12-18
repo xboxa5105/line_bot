@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/robfig/cron"
 )
 
 type exchange_rate struct {
@@ -28,16 +28,16 @@ type message struct {
 }
 
 func main() {
-	spec := "0 0 1,4,7 * * *"
-	c := cron.New()
-	c.AddFunc(spec, func() {
-		rate_data, _ := http_bank()
-		// exchange_rate_data, _ := json.Marshal(rate_data)
-		usd := fmt.Sprintf("美金 : %s\n日圓 : %s\n英鎊 : %s\n歐元 : %s", rate_data.USD, rate_data.JPY, rate_data.GBP, rate_data.EUR)
-		line_post(usd)
-		fmt.Println(usd)
-	})
-	c.Start()
+	// spec := "0 0 1,4,7 * * *"
+	// c := cron.New()
+	// c.AddFunc(spec, func() {
+	rate_data, _ := http_bank()
+	// exchange_rate_data, _ := json.Marshal(rate_data)
+	usd := fmt.Sprintf("美金 : %s\n日圓 : %s\n英鎊 : %s\n歐元 : %s", rate_data.USD, rate_data.JPY, rate_data.GBP, rate_data.EUR)
+	line_post(usd)
+	fmt.Println(usd)
+	// })
+	// c.Start()
 	// select {}
 
 	fmt.Println("Server is on 8001")
@@ -70,12 +70,11 @@ func http_bank() (*exchange_rate, error) {
 
 		return s.Text()
 	})
-	// fmt.Println(rate)
 	rate_data := &exchange_rate{
-		USD: rate[1],
-		JPY: rate[15],
-		GBP: rate[5],
-		EUR: rate[29],
+		USD: strings.Replace(rate[1], " ", "", -1),
+		JPY: strings.Replace(rate[15], " ", "", -1),
+		GBP: strings.Replace(rate[5], " ", "", -1),
+		EUR: strings.Replace(rate[29], " ", "", -1),
 	}
 	return rate_data, nil
 }
