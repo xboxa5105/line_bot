@@ -8,14 +8,15 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-type exchange_rate struct {
+type exchangeRate struct {
 	USD string `json:"美金"`
 	JPY string `json:"日圓"`
 	GBP string `json:"英鎊"`
 	EUR string `json:"歐元"`
 }
 
-func HttpBank() (*exchange_rate, error) {
+// HTTPBank for bank api
+func HTTPBank() (*exchangeRate, error) {
 	// var rate []string
 	resp, err := http.Get("https://rate.bot.com.tw/xrt?Lang=zh-TW")
 	if err != nil {
@@ -33,11 +34,11 @@ func HttpBank() (*exchange_rate, error) {
 	rate := doc.Find("[class=\"rate-content-sight text-right print_hide\"]").Map(func(i int, s *goquery.Selection) string {
 		return s.Text()
 	})
-	rate_data := &exchange_rate{
+	rateData := &exchangeRate{
 		USD: strings.Replace(rate[1], " ", "", -1),
 		JPY: strings.Replace(rate[15], " ", "", -1),
 		GBP: strings.Replace(rate[5], " ", "", -1),
 		EUR: strings.Replace(rate[29], " ", "", -1),
 	}
-	return rate_data, nil
+	return rateData, nil
 }
