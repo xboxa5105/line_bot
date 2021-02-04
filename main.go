@@ -1,7 +1,7 @@
 package main
 
 import (
-	"lineBot/schedule"
+	schedule "lineBot/schedule"
 	"log"
 	"net/http"
 )
