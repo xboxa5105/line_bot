@@ -1,17 +1,10 @@
 package main
 
 import (
-	"lineBot/schedule"
+	schedule "lineBot/schedule"
 	"log"
 	"net/http"
 )
-
-type exchange_rate struct {
-	USD string `json:"美金"`
-	JPY string `json:"日圓"`
-	GBP string `json:"英鎊"`
-	EUR string `json:"歐元"`
-}
 
 func main() {
 
