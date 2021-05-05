@@ -6,7 +6,7 @@ import (
 	"github.com/robfig/cron/v3"
 )
 
-func ScheduleLine() {
+func ScheduleLine(channelAccessToken, lineUrl string) {
 
 	spec := "0 0 1,4,7 * * *"
 	c := cron.New()
@@ -20,7 +20,7 @@ func ScheduleLine() {
 		rateData, _ := HTTPBank()
 		// exchange_rateData, _ := json.Marshal(rateData)
 		usd := fmt.Sprintf("美金 : %s\n日圓 : %s\n英鎊 : %s\n歐元 : %s", rateData.USD, rateData.JPY, rateData.GBP, rateData.EUR)
-		LinePost(usd)
+		LinePost(usd, channelAccessToken, lineUrl)
 	})
 	c.Start()
 }

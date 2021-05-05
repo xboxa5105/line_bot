@@ -21,13 +21,13 @@ type message struct {
 	Text string `json:"text"`
 }
 
-func LinePost(r string) string {
+func LinePost(r, channelAccessToken, lineUrl string) string {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	fmt.Println(os.Getenv("CHANNEL_ACCESS_TOKEN"))
-	basictest := fmt.Sprintf("Bearer %s", os.Getenv("CHANNEL_ACCESS_TOKEN"))
+	fmt.Println(channelAccessToken)
+	basictest := fmt.Sprintf("Bearer %s", channelAccessToken)
 
 	b := &body{
 		To: "Ubfba3a940d4441bf51e81bfce0159bc1",
